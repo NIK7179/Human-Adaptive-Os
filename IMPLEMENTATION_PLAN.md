@@ -118,5 +118,53 @@ docs: README.md ARCHITECTURE.md PRIVACY.md APPLE_CAPABILITY_MATRIX.md
 
 - **Phase 0 (repo inspection):** empty repo (README only). Branch
   `claude/adaptive-human-os-d0em02` checked out. No toolchain available;
-  arithmetic replica verified all fixture constants exactly.
-- **Phase A:** _in progress._
+  arithmetic replica verified all fixture constants exactly
+  (`overall = 0.6833730781418192`, bit-exact, diff 0.0).
+- **Phase A (keystone):** complete. Keystone fixture + wider-margin
+  variation, normalization tests, reliability tests (production type),
+  threshold-boundary tests, count-derivation tests from five real
+  `ContextSignal`s, outcome selection as a production type
+  (`AdaptationOutcomeSelector`), and a source-scan test enforcing no
+  ambient `Date()`/`UUID()` in scoring paths. All Section A gates
+  satisfied before any SwiftUI work began.
+- **Phase B (engine):** complete. Centralized
+  `AdaptiveScoringConfiguration` (calibrated to reproduce the B.6A vote
+  table exactly), deterministic 19-stage pipeline, hysteresis, cooldown
+  with override-expiration rule, manual-override supremacy,
+  precedence-ordered theme composition with override records,
+  explainability contract + validator (prohibited-language enforcement),
+  timeline + undo (actor store with retention/deletion), comfort score
+  with B.16A safeguards, fatigue score with the 0.75 inferred cap,
+  bounded/smoothed personalization, ten simulation scenarios.
+  ~70 tests across 16 files. Documented deviation: conflict-rule
+  interpretation (see ARCHITECTURE.md) — required to reproduce
+  `conflictingSignalCount = 1` in the worked example.
+- **Phase C1/C2 (UI + partner SDK):** complete as source, all files
+  `#if canImport(SwiftUI)`. Dashboard (mode card, confidence meter,
+  suggestion banner with accept/dismiss, context summary, comfort card,
+  manual override chips, feedback), WhyThisModeView (factors, confidence
+  breakdown, unavailable data, privacy, undo), HistoryView with undo,
+  MoodCheckInView, PrivacyCenterView, SettingsView with simulation
+  picker and an honest "unavailable in this build" section,
+  AdaptiveExperienceKit + PartnerDemoView, App shell + XCODE_SETUP.md.
+- **Phase C3 (docs):** complete — README, ARCHITECTURE, PRIVACY,
+  APPLE_CAPABILITY_MATRIX, PARTNER_SDK, TESTING, PITCH_DEMO, ROADMAP.
+- **Phase D:** intentionally not started (per delivery discipline):
+  widgets, Live Activities, App Intents, WeatherKit, HealthKit, SwiftData,
+  App Group — all require Xcode targets/entitlements/signing; documented
+  in the capability matrix, Settings screen and Privacy Center.
+
+## Environment blockers encountered
+
+1. **No Swift toolchain obtainable** — the container network policy
+   blocks download.swift.org, GitHub release assets, swiftlang.xyz,
+   Fedora/openSUSE mirrors and Docker Hub blob CDNs. Mitigated by exact
+   arithmetic verification (Python replica, bit-exact), tree-sitter Swift
+   syntax validation of all 55 files (0 issues), and the CI workflow.
+2. **Git push blocked** — both the git credential and the GitHub MCP
+   integration currently have read-only access to
+   `NIK7179/Human-Adaptive-Os` ("Permission … denied", "Resource not
+   accessible by integration"). Work is committed locally on
+   `claude/adaptive-human-os-d0em02`; granting the Claude GitHub App
+   write access to the repository and re-running the session's push is
+   all that remains. CI will run the keystone suite on first push.
