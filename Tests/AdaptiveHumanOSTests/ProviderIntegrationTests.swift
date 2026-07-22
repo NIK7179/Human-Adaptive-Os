@@ -281,7 +281,9 @@ struct ProviderIntegrationTests {
         ))
         var scheduled = await provider.scheduled
         #expect(scheduled.count == 1)
-        #expect(scheduled[.takeBreak]?.fireAfter == 30 * 60)
+        // Explicit Double literal: `Optional<Double> == Int-product` resolves
+        // through AnyHashable on Linux, where 1800.0 != 1800.
+        #expect(scheduled[.takeBreak]?.fireAfter == 1800.0)
         await provider.cancelReminder(kind: .takeBreak)
         scheduled = await provider.scheduled
         #expect(scheduled.isEmpty)
