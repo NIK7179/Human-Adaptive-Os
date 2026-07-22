@@ -25,7 +25,11 @@ struct NormalizationTests {
     @Test
     func normalizationIsBoundedAndMonotonic() {
         let normalizer = LogisticScoreNormalizer(temperature: 1.0)
-        let inputs: [Double] = [-50, -5, -1, -0.1, 0, 0.1, 1, 5, 50]
+        // ±30 is far beyond any reachable raw score (the vote table bounds
+        // sums to roughly ±3) while staying below double-precision
+        // saturation: at raw ≥ 37, 1 + exp(-raw) == 1.0 exactly, so the
+        // logistic returns 1.0 and a strict upper-bound check would fail.
+        let inputs: [Double] = [-30, -5, -1, -0.1, 0, 0.1, 1, 5, 30]
         var previous = -Double.infinity
         for raw in inputs {
             let value = normalizer.normalize(rawScore: raw)
