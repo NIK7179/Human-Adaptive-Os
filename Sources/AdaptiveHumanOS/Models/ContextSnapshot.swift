@@ -30,7 +30,7 @@ public enum WeatherCondition: String, Codable, CaseIterable, Sendable {
     case clear, partlyCloudy, overcast, rain, snow, storm, fog, unknown
 }
 
-public struct WeatherContext: Codable, Sendable {
+public struct WeatherContext: Codable, Sendable, Equatable {
     public let condition: WeatherCondition
     public let temperatureCelsius: Double?
     public let isPrecipitating: Bool
