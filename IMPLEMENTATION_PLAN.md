@@ -154,6 +154,19 @@ docs: README.md ARCHITECTURE.md PRIVACY.md APPLE_CAPABILITY_MATRIX.md
   App Group — all require Xcode targets/entitlements/signing; documented
   in the capability matrix, Settings screen and Privacy Center.
 
+- **Phase D1 (integration preparation):** complete. Production provider
+  protocols (weather/health/ambient/interaction/notifications) with
+  deterministic simulation implementations; `ContextSnapshotAssembler`
+  connecting providers → `ContextSnapshot` → engine with failure isolation,
+  typed permission/network errors, staleness windows, cancellation
+  propagation and single-timestamp determinism; Live Activity exit-policy
+  core (`AdaptiveSessionPolicy` + `SessionExitEvaluator`); App Group
+  shared-state codec. All Linux-tested (~20 new tests). Xcode-target
+  sources created under `App/XcodeTargets/` (WeatherKit/HealthKit/ambient/
+  notification adapters, widgets, Live Activities, App Intents, App Group
+  store) — **syntax-only, not compiled anywhere**; statuses in
+  `VERIFICATION_MATRIX.md`; setup steps in `App/XCODE_SETUP.md`.
+
 ## Environment blockers encountered
 
 1. **No Swift toolchain obtainable** — the container network policy

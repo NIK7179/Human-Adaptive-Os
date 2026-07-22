@@ -20,8 +20,9 @@ evidence, never diagnoses, and always explains itself.
 | Decision engine (Section A keystone + Section B) | `AdaptiveHumanOS` | Complete, platform-agnostic (Foundation only), ~70 unit tests incl. the keystone regression fixture |
 | SwiftUI app layer (dashboard, why-this-mode, history, mood check-in, privacy center, settings) | `AdaptiveHumanOSUI` | Complete as source; compiles under Xcode/macOS (`#if canImport(SwiftUI)`) |
 | Partner SDK concept + sample partner feed | `AdaptiveExperienceKit` | Complete as source |
+| Provider seams: protocols, simulation implementations, snapshot assembler, session exit policies, App Group codec | `AdaptiveHumanOS/Services` | Complete, Linux-tested (failure isolation, staleness, cancellation, determinism) |
 | App shell for device builds | `App/` | Provided with numbered Xcode steps |
-| Widgets, Live Activities, App Intents, WeatherKit, HealthKit | — | **Not implemented** — blocked on Xcode targets/entitlements; documented in the capability matrix and Settings screen |
+| WeatherKit/HealthKit/ambient/notification adapters, widgets, Live Activities, App Intents, App Group store | `App/XcodeTargets/` | **Written, syntax-only — awaiting Xcode compilation**; per-component statuses in [`VERIFICATION_MATRIX.md`](VERIFICATION_MATRIX.md) |
 
 ## The keystone (executable specification)
 
